@@ -10,6 +10,7 @@ interface IContact {
 
 interface State {
   contacts: IContact[];
+  filter: string;
   name: string;
   number: string;
 }
@@ -17,6 +18,7 @@ interface State {
 class App extends Component<{}, State> {
   state = {
     contacts: [],
+    filter: '',
     name: '',
     number: '',
   };
@@ -50,7 +52,23 @@ class App extends Component<{}, State> {
     }
   };
 
+  handleFilter = (evt: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = evt.currentTarget;
+
+    this.setState({ filter: value });
+  };
+
+  getVisibleContacts = () => {
+    const normalizedFilter = this.state.filter.toLowerCase();
+
+    return this.state.contacts.filter(({ name }) => {
+      return (name as string).toLowerCase().includes(normalizedFilter);
+    });
+  };
+
   render() {
+    const visibleContacts = this.getVisibleContacts();
+
     return (
       <div className="App">
         <h2>Phonebook</h2>
@@ -83,11 +101,13 @@ class App extends Component<{}, State> {
           <button type="submit">Add Contact</button>
         </form>
         <h2>Contacts</h2>
-        {this.state.contacts.length === 0 ? (
+        <p>Find contacts by name</p>
+        <input type="text" onChange={this.handleFilter} />
+        {visibleContacts.length === 0 ? (
           <p>No contacts found</p>
         ) : (
           <ul>
-            {this.state.contacts.map(({ name, number, id }) => {
+            {visibleContacts.map(({ name, number, id }) => {
               return (
                 <li key={id}>
                   {name}: {number}
