@@ -2,14 +2,11 @@ import { Component } from 'react';
 import './App.css';
 import { nanoid } from 'nanoid';
 
+import IContact from './interfaces/Contact.interface';
+
 import ContactForm from './components/ContactForm/ContactForm';
 import Filter from './components/Filter/Filter';
-
-interface IContact {
-  name: string;
-  number: string;
-  id: string;
-}
+import ContactList from './components/ContactList/ContactList';
 
 interface State {
   contacts: IContact[];
@@ -57,18 +54,10 @@ class App extends Component<{}, State> {
         <ContactForm creationContact={this.creationContact} />
         <h2>Contacts</h2>
         <Filter filter={this.state.filter} handleFilter={this.handleFilter} />
-        {visibleContacts.length === 0 ? (
-          <p>No contacts found</p>
+        {visibleContacts.length > 0 ? (
+          <ContactList contacts={visibleContacts} />
         ) : (
-          <ul>
-            {visibleContacts.map(({ name, number, id }) => {
-              return (
-                <li key={id}>
-                  {name}: {number}
-                </li>
-              );
-            })}
-          </ul>
+          <p>Not contacts found</p>
         )}
       </div>
     );
