@@ -1,7 +1,9 @@
 import { Component } from 'react';
 import './App.css';
-import ContactForm from './components/ContactForm/ContactForm';
 import { nanoid } from 'nanoid';
+
+import ContactForm from './components/ContactForm/ContactForm';
+import Filter from './components/Filter/Filter';
 
 interface IContact {
   name: string;
@@ -53,10 +55,8 @@ class App extends Component<{}, State> {
       <div className="App">
         <h1>Phonebook</h1>
         <ContactForm creationContact={this.creationContact} />
-
         <h2>Contacts</h2>
-        <p>Find contacts by name</p>
-        <input type="text" onChange={this.handleFilter} />
+        <Filter filter={this.state.filter} handleFilter={this.handleFilter} />
         {visibleContacts.length === 0 ? (
           <p>No contacts found</p>
         ) : (
