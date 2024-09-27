@@ -7,6 +7,7 @@ import IContact from './interfaces/Contact.interface';
 import ContactForm from './components/ContactForm/ContactForm';
 import Filter from './components/Filter/Filter';
 import ContactList from './components/ContactList/ContactList';
+import Notification from './components/Notification/Notification';
 
 interface State {
   contacts: IContact[];
@@ -62,7 +63,7 @@ class App extends Component<{}, State> {
         {visibleContacts.length > 0 ? (
           <ContactList contacts={visibleContacts} />
         ) : (
-          <p>Not contacts found</p>
+          <Notification notice={'Not contacts found'} />
         )}
       </div>
     );
