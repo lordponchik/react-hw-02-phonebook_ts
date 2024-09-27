@@ -16,7 +16,12 @@ interface State {
 
 class App extends Component<{}, State> {
   state = {
-    contacts: [],
+    contacts: [
+      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
+      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
+      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
+      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
+    ],
     filter: '',
   };
 
@@ -43,6 +48,12 @@ class App extends Component<{}, State> {
     this.setState({ filter: value });
   };
 
+  deleteContact = (contactID: string) => {
+    this.setState(prevEvent => ({
+      contacts: prevEvent.contacts.filter(({ id }) => id !== contactID),
+    }));
+  };
+
   getVisibleContacts = () => {
     const normalizedFilter = this.state.filter.toLowerCase();
 
@@ -61,7 +72,7 @@ class App extends Component<{}, State> {
         <h2>Contacts</h2>
         <Filter filter={this.state.filter} handleFilter={this.handleFilter} />
         {visibleContacts.length > 0 ? (
-          <ContactList contacts={visibleContacts} />
+          <ContactList contacts={visibleContacts} deleteContact={this.deleteContact} />
         ) : (
           <Notification notice={'Not contacts found'} />
         )}

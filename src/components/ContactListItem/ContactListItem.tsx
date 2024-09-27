@@ -1,9 +1,24 @@
 import IContact from '../../interfaces/Contact.interface';
 
-const ContactListItem = ({ name, number }: IContact) => {
+interface Props {
+  contact: IContact;
+  deleteContact(id: string): void;
+}
+
+const ContactListItem = ({ contact: { name, number, id }, deleteContact }: Props) => {
   return (
     <li>
-      {name}: {number}
+      <p>
+        {name}: {number}
+      </p>
+      <button
+        type="button"
+        onClick={() => {
+          deleteContact(id);
+        }}
+      >
+        delete
+      </button>
     </li>
   );
 };
