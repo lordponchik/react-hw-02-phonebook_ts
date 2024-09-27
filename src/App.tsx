@@ -1,6 +1,6 @@
 import { Component } from 'react';
-import './App.css';
 import { nanoid } from 'nanoid';
+import style from './App.module.css';
 
 import IContact from './interfaces/Contact.interface';
 
@@ -66,10 +66,10 @@ class App extends Component<{}, State> {
     const visibleContacts = this.getVisibleContacts();
 
     return (
-      <div className="App">
-        <h1>Phonebook</h1>
+      <div className={style.app}>
+        <h1 className={style.title}>Phonebook</h1>
         <ContactForm creationContact={this.creationContact} />
-        <h2>Contacts</h2>
+        <h2 className={style.title}>Contacts</h2>
         <Filter filter={this.state.filter} handleFilter={this.handleFilter} />
         {visibleContacts.length > 0 ? (
           <ContactList contacts={visibleContacts} deleteContact={this.deleteContact} />
