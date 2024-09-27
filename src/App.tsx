@@ -26,6 +26,11 @@ class App extends Component<{}, State> {
       id: nanoid(),
     };
 
+    if (this.state.contacts.some((contact: IContact) => contact.name === name)) {
+      alert(`${name} is already in contacts`);
+      return;
+    }
+
     this.setState(prev => ({
       contacts: [...prev.contacts, contact],
     }));
