@@ -1,3 +1,4 @@
+import style from './ContactListItem.module.css';
 import IContact from '../../interfaces/Contact.interface';
 
 interface Props {
@@ -7,7 +8,7 @@ interface Props {
 
 const ContactListItem = ({ contact: { name, number, id }, deleteContact }: Props) => {
   return (
-    <li>
+    <li className={style.contact}>
       <p>
         {name}: {number}
       </p>
